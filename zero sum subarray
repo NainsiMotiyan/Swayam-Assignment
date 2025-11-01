@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    int findSubarray(vector<int> &arr) {
+        unordered_map<int, int> prefixSumFreq;
+        int sum = 0;
+        int count = 0;
+        
+        for (int i = 0; i < arr.size(); i++) {
+            sum += arr[i];
+            
+            // If prefix sum is 0, that means subarray [0..i] has sum 0
+            if (sum == 0)
+                count++;
+            
+            // If this sum was seen before, it means there are subarrays with 0 sum
+            if (prefixSumFreq.find(sum) != prefixSumFreq.end())
+                count += prefixSumFreq[sum];
+            
+            // Increment the frequency of the current prefix sum
+            prefixSumFreq[sum]++;
+        }
+        
+        return count;
+    }
+};
