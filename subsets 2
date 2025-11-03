@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+  public:
+    void backtrack(int index, vector<int>& arr, vector<int>& current, vector<vector<int>>& result) {
+        result.push_back(current);
+        for (int i = index; i < arr.size(); i++) {
+            if (i > index && arr[i] == arr[i - 1]) continue;
+            current.push_back(arr[i]);
+            backtrack(i + 1, arr, current, result);
+            current.pop_back();
+        }
+    }
+
+    vector<vector<int>> findSubsets(vector<int>& arr) {
+        sort(arr.begin(), arr.end());
+        vector<vector<int>> result;
+        vector<int> current;
+        backtrack(0, arr, current, result);
+        return result;
+    }
+};
