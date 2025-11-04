@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    void dfsUtil(int node, vector<vector<int>>& adj, vector<int>& vis, vector<int>& result) {
+        vis[node] = 1;
+        result.push_back(node);
+        
+        for (auto it : adj[node]) {
+            if (!vis[it]) {
+                dfsUtil(it, adj, vis, result);
+            }
+        }
+    }
+
+    vector<int> dfs(vector<vector<int>>& adj) {
+        int V = adj.size();
+        vector<int> vis(V, 0);
+        vector<int> result;
+        
+        dfsUtil(0, adj, vis, result);
+        return result;
+    }
+};
