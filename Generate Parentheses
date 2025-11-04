@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        backtrack("", 0, 0, n, result);
+        return result;
+    }
+
+    void backtrack(string current, int open, int close, int max, vector<string>& result) {
+        // Base case: complete string 
+        if (current.length() == max * 2) {
+            result.push_back(current);
+            return;
+        }
+
+        // Add open bracket if allowed
+        if (open < max) {
+            backtrack(current + "(", open + 1, close, max, result);
+        }
+
+        // Add close bracket if valid
+        if (close < open) {
+            backtrack(current + ")", open, close + 1, max, result);
+        }
+    }
+};
