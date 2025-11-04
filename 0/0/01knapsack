@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int helper(int ind, int W, vector<int>& val, vector<int>& wt, vector<vector<int>>& dp) {
+        if (ind == 0) {
+            if (wt[0] <= W) return val[0];
+            else return 0;
+        }
+
+        if (dp[ind][W] != -1) return dp[ind][W];
+
+        int notTake = 0 + helper(ind - 1, W, val, wt, dp);
+
+        int take = INT_MIN;
+        if (wt[ind] <= W) {
+            take = val[ind] + helper(ind - 1, W - wt[ind], val, wt, dp);
+        }
+
+        return dp[ind][W] = max(take, notTake);
+    }
+
+    int knapsack(int W, vector<int> &val, vector<int> &wt) {
+        int n = val.size();
+        vector<vector<int>> dp(n, vector<int>(W + 1, -1));
+        return helper(n - 1, W, val, wt, dp);
+    }
+};
