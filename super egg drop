@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int superEggDrop(int k, int n) {
+        vector<vector<int>> dp(k + 1, vector<int>(n + 1, 0));
+        int moves = 0;
+        while (dp[k][moves] < n) {
+            moves++;
+            for (int e = 1; e <= k; e++)
+                dp[e][moves] = dp[e - 1][moves - 1] + dp[e][moves - 1] + 1;
+        }
+        return moves;
+    }
+};
