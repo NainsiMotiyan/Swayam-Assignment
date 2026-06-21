@@ -19,7 +19,7 @@ public:
             bars += canBuy;
             coins -= canBuy * cost;
 
-            if (coins > cost) continue;
+            if (coins < cost) continue;
         }
 
         return bars;
